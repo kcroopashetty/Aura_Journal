@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TrustedContactSettings from './TrustedContact';
 import { getConversations } from '../utils/auraResponses';
 
-const AuraControlPanel = ({ isOpen, onClose, onLogout, onTriggerExercise, currentUser }) => {
+const AuraControlPanel = ({ isOpen, onClose, onLogout, onTriggerExercise, currentUser, onOpenSOS }) => {
         const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [clearRange, setClearRange] = useState('today');
     const [showClearConfirm, setShowClearConfirm] = useState(false);
@@ -179,6 +179,48 @@ const AuraControlPanel = ({ isOpen, onClose, onLogout, onTriggerExercise, curren
                         overflowY: 'auto',
                         flex: 1
                     }}>
+                        {/* Emergency SOS Banner */}
+                        {onOpenSOS && (
+                            <div style={{
+                                background: 'linear-gradient(135deg, rgba(255, 77, 79, 0.1), rgba(255, 120, 117, 0.15))',
+                                border: '2px solid rgba(255, 77, 79, 0.3)',
+                                borderRadius: '14px',
+                                padding: '14px 18px',
+                                marginBottom: '25px',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }}>
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                        <span style={{ fontSize: '1.2rem' }}>🚨</span>
+                                        <strong style={{ color: '#cf1322', fontSize: '1rem' }}>Emergency SOS Mode</strong>
+                                    </div>
+                                    <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#8c8c8c' }}>
+                                        24/7 National Helplines, nearby counselors & calm breathing
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        onClose();
+                                        onOpenSOS();
+                                    }}
+                                    style={{
+                                        background: 'linear-gradient(135deg, #ff4d4f, #ff7875)',
+                                        color: 'white',
+                                        border: 'none',
+                                        padding: '8px 16px',
+                                        borderRadius: '20px',
+                                        fontWeight: '700',
+                                        fontSize: '0.85rem',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 3px 10px rgba(255, 77, 79, 0.3)'
+                                    }}
+                                >
+                                    Open SOS
+                                </button>
+                            </div>
+                        )}
                         {/* Clear Chat Section */}
                         <section style={{ marginBottom: '30px' }}>
                             <h3 style={{

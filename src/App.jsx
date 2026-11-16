@@ -13,6 +13,7 @@ import FacialMoodCapture from './components/FacialMoodCapture';
 import Doodle from './components/Doodle';
 import Onboarding from './components/Onboarding';
 import ActivityModal from './components/activities/ActivityModal';
+import SOSModal from './components/SOSModal';
 import SupportInsightCard from './components/SupportInsightCard';
 import RecoveryTimeCard from './components/RecoveryTimeCard';
 import WeeklySummaryCard from './components/WeeklySummaryCard';
@@ -396,6 +397,7 @@ const DashboardContent = ({
 }) => {
     const navigate = useNavigate();
     const [showControlPanel, setShowControlPanel] = useState(false);
+    const [showSOSModal, setShowSOSModal] = useState(false);
     const [activeActivity, setActiveActivity] = useState(null);
     const [showNightCard, setShowNightCard] = useState(false);
     const diaryRef = React.useRef(null);
@@ -581,6 +583,37 @@ const DashboardContent = ({
                             ⚙️ Controls
                         </button>
 
+                        {/* Emergency SOS Button */}
+                        <button
+                            onClick={() => setShowSOSModal(true)}
+                            style={{
+                                fontSize: '0.9rem',
+                                padding: '8px 16px',
+                                background: 'linear-gradient(135deg, #ff4d4f, #ff7875)',
+                                color: 'white',
+                                borderRadius: '20px',
+                                boxShadow: '0 4px 14px rgba(255, 77, 79, 0.35)',
+                                border: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                cursor: 'pointer',
+                                fontWeight: '700',
+                                transition: 'all 0.2s'
+                            }}
+                            title="Emergency SOS & Crisis Assistance"
+                            onMouseOver={e => {
+                                e.currentTarget.style.transform = 'scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 77, 79, 0.5)';
+                            }}
+                            onMouseOut={e => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = '0 4px 14px rgba(255, 77, 79, 0.35)';
+                            }}
+                        >
+                            🚨 SOS
+                        </button>
+
                         <div style={{
                             background: 'hsl(var(--card-white))',
                             padding: '8px 16px',
@@ -697,6 +730,17 @@ const DashboardContent = ({
                     onLogout={onLogout}
                     onTriggerExercise={handleTriggerExercise}
                     currentUser={currentUser}
+                    onOpenSOS={() => setShowSOSModal(true)}
+                />
+
+                {/* Emergency SOS Modal */}
+                <SOSModal
+                    isOpen={showSOSModal}
+                    onClose={() => setShowSOSModal(false)}
+                    onStartBreathing={() => {
+                        setShowSOSModal(false);
+                        handleTriggerExercise('breathing');
+                    }}
                 />
 
                 {/* Activity Modal */}
