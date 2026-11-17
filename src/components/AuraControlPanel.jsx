@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TrustedContactSettings from './TrustedContact';
 import { getConversations } from '../utils/auraResponses';
 
-const AuraControlPanel = ({ isOpen, onClose, onLogout, onTriggerExercise, currentUser, onOpenSOS }) => {
+const AuraControlPanel = ({ isOpen, onClose, onLogout, onTriggerExercise, currentUser, onOpenSOS, onOpenMusic }) => {
         const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [clearRange, setClearRange] = useState('today');
     const [showClearConfirm, setShowClearConfirm] = useState(false);
@@ -221,7 +221,48 @@ const AuraControlPanel = ({ isOpen, onClose, onLogout, onTriggerExercise, curren
                                 </button>
                             </div>
                         )}
-                        {/* Clear Chat Section */}
+                        {/* Ambient Music Banner */}
+                        {onOpenMusic && (
+                            <div style={{
+                                background: 'linear-gradient(135deg, rgba(162, 210, 255, 0.15), rgba(181, 234, 215, 0.2))',
+                                border: '1px solid rgba(162, 210, 255, 0.4)',
+                                borderRadius: '14px',
+                                padding: '14px 18px',
+                                marginBottom: '25px',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }}>
+                                <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                        <span style={{ fontSize: '1.2rem' }}>🎵</span>
+                                        <strong style={{ color: 'hsl(var(--secondary))', fontSize: '1rem' }}>Ambient Music & Soundscapes</strong>
+                                    </div>
+                                    <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#8c8c8c' }}>
+                                        Listen to curated YouTube lofi, rain & piano while journaling
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        onClose();
+                                        onOpenMusic();
+                                    }}
+                                    style={{
+                                        background: 'linear-gradient(135deg, #a2d2ff, #b5ead7)',
+                                        color: '#2a5d7c',
+                                        border: 'none',
+                                        padding: '8px 16px',
+                                        borderRadius: '20px',
+                                        fontWeight: '700',
+                                        fontSize: '0.85rem',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 3px 10px rgba(162, 210, 255, 0.3)'
+                                    }}
+                                >
+                                    Open Music
+                                </button>
+                            </div>
+                        )}
                         <section style={{ marginBottom: '30px' }}>
                             <h3 style={{
                                 fontFamily: 'var(--font-hand)',

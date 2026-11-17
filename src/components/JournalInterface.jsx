@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useSpeechRecognition from '../hooks/useSpeechRecognition';
 import Doodle from './Doodle';
 
-const JournalInterface = ({ onAnalyze }) => {
+const JournalInterface = ({ onAnalyze, facialMood }) => {
     const [entry, setEntry] = useState('');
     const { isListening, transcript, voiceEmotion, startListening, stopListening, hasRecognitionSupport } = useSpeechRecognition();
 
@@ -129,9 +129,28 @@ const JournalInterface = ({ onAnalyze }) => {
                     <h3 style={{ fontWeight: '400', fontFamily: 'var(--font-hand)', fontSize: '1.8rem', color: 'hsl(var(--text-dark))' }}>
                         Dear Diary...
                     </h3>
-                    <span style={{ fontFamily: 'var(--font-body-hand)', color: 'hsl(var(--text-muted))' }}>
-                        {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontFamily: 'var(--font-body-hand)', color: 'hsl(var(--text-muted))' }}>
+                            {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}
+                        </span>
+                        {facialMood && facialMood.isLive && (
+                            <span style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '5px',
+                                padding: '2px 10px',
+                                background: 'rgba(205, 180, 219, 0.2)',
+                                border: '1px solid hsl(var(--primary) / 0.3)',
+                                borderRadius: '50px',
+                                fontSize: '0.75rem',
+                                fontWeight: '700',
+                                color: 'hsl(var(--primary))'
+                            }} title="Real-time facial expression tracking active">
+                                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4caf50' }} />
+                                {facialMood.emoji} {facialMood.label} {facialMood.confidence ? `(${facialMood.confidence}%)` : ''}
+                            </span>
+                        )}
+                    </div>
                 </div>
 
                 {hasRecognitionSupport && (

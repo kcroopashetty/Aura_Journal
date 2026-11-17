@@ -92,8 +92,9 @@ Aura_Journal/
 │   │   │   └── TaskBreakdownModule.jsx # Cognitive overwhelm 3-tier decomposer
 │   │   ├── AIInsight.jsx               # Real-time sentiment & dissonance feedback card
 │   │   ├── AuraControlPanel.jsx        # Data governance, selective history purge, & settings
+│   │   ├── AuraMusicPlayer.jsx         # Background YouTube Music & ambient soundscape player
 │   │   ├── CareBreathingAnimation.jsx  # Crisis de-escalation breathing loop
-│   │   ├── FacialMoodCapture.jsx       # WebGL camera detector (face-api inference)
+│   │   ├── FacialMoodCapture.jsx       # Real-time live WebGL camera emotion tracker
 │   │   ├── FindHelpNearMe.jsx          # Client-side Haversine geodesic counselor finder
 │   │   ├── HelplineButton.jsx          # Quick-dial 24/7 mental health access
 │   │   ├── InteractiveDiary.jsx        # Conversational reflective UI with speech dictation
@@ -153,7 +154,13 @@ $$\Delta\sigma = 2 \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta\phi}{2}\right) + 
 Implemented in `src/components/FacialMoodCapture.jsx`:
 - **Model Architecture**: Uses **TinyFaceDetector** (depthwise separable MobileNet convolutions) paired with **FaceExpressionNet** (7-class expression classifier).
 - **GPU Acceleration**: Compiles TensorFlow.js kernels directly to WebGL texture shaders.
-- **Inference Speed**: Executes in under **50ms** on standard laptop GPUs with zero cloud roundtrip latency.
+- **Continuous Live Tracking**: Runs an 800ms periodic inference loop as the user writes, providing real-time live emotion feedback without video frames leaving client memory.
+
+### 4. Ambient YouTube Music & Soundscape Player
+Implemented in `src/components/AuraMusicPlayer.jsx`:
+- **Continuous Background Playback**: Non-intrusive audio streaming that persists seamlessly across journaling modes and panel toggles.
+- **Curated Calming Streams**: Curated Lo-Fi study beats, peaceful piano, 528Hz somatic healing frequencies, gentle rain, and nature soundscapes.
+- **Custom YouTube Integration**: Directly accepts user-provided YouTube or YouTube Music links, extracting video identifiers for instant playback.
 
 ---
 

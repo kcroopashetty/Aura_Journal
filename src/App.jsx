@@ -14,6 +14,7 @@ import Doodle from './components/Doodle';
 import Onboarding from './components/Onboarding';
 import ActivityModal from './components/activities/ActivityModal';
 import SOSModal from './components/SOSModal';
+import AuraMusicPlayer from './components/AuraMusicPlayer';
 import SupportInsightCard from './components/SupportInsightCard';
 import RecoveryTimeCard from './components/RecoveryTimeCard';
 import WeeklySummaryCard from './components/WeeklySummaryCard';
@@ -398,6 +399,7 @@ const DashboardContent = ({
     const navigate = useNavigate();
     const [showControlPanel, setShowControlPanel] = useState(false);
     const [showSOSModal, setShowSOSModal] = useState(false);
+    const [showMusicPlayer, setShowMusicPlayer] = useState(false);
     const [activeActivity, setActiveActivity] = useState(null);
     const [showNightCard, setShowNightCard] = useState(false);
     const diaryRef = React.useRef(null);
@@ -583,6 +585,37 @@ const DashboardContent = ({
                             ⚙️ Controls
                         </button>
 
+                        {/* Ambient Music Button */}
+                        <button
+                            onClick={() => setShowMusicPlayer(true)}
+                            style={{
+                                fontSize: '0.9rem',
+                                padding: '8px 16px',
+                                background: 'linear-gradient(135deg, rgba(162, 210, 255, 0.25), rgba(181, 234, 215, 0.3))',
+                                borderRadius: '20px',
+                                boxShadow: 'var(--shadow-soft)',
+                                border: '1px solid hsl(var(--secondary) / 0.4)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                                color: 'hsl(var(--secondary))',
+                                transition: 'all 0.2s'
+                            }}
+                            title="Play calming YouTube ambient music & lofi"
+                            onMouseOver={e => {
+                                e.currentTarget.style.transform = 'scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 4px 15px rgba(162, 210, 255, 0.4)';
+                            }}
+                            onMouseOut={e => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'var(--shadow-soft)';
+                            }}
+                        >
+                            🎵 Music
+                        </button>
+
                         {/* Emergency SOS Button */}
                         <button
                             onClick={() => setShowSOSModal(true)}
@@ -650,9 +683,10 @@ const DashboardContent = ({
                                 onAnalyze={handleAnalyzeEntry}
                                 userContext={currentUser.userContext}
                                 onTriggerExercise={handleTriggerExercise}
+                                facialMood={facialMood}
                             />
                         ) : (
-                            <JournalInterface onAnalyze={handleAnalyzeEntry} />
+                            <JournalInterface onAnalyze={handleAnalyzeEntry} facialMood={facialMood} />
                         )}
                     </section>
 
@@ -731,6 +765,13 @@ const DashboardContent = ({
                     onTriggerExercise={handleTriggerExercise}
                     currentUser={currentUser}
                     onOpenSOS={() => setShowSOSModal(true)}
+                    onOpenMusic={() => setShowMusicPlayer(true)}
+                />
+
+                {/* Ambient YouTube Music Player */}
+                <AuraMusicPlayer
+                    isOpen={showMusicPlayer}
+                    onClose={() => setShowMusicPlayer(false)}
                 />
 
                 {/* Emergency SOS Modal */}
